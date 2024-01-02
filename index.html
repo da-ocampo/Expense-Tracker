@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expense Tracker</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="container" class="app-container">
+            <div class="slide" id="slide1">
+                <h2>Calculate Monthly Income</h2>
+                <label for="hourlyRate">Hourly Rate:</label>
+                <input type="number" id="hourlyRate" placeholder="Enter your hourly rate">
+                <label for="hoursPerWeek">Hours per Week:</label>
+                <input type="number" id="hoursPerWeek" placeholder="Enter hours per week">
+                <button onclick="calculateMonthlyIncome()">Calculate</button>
+                <p id="monthlyIncome"></p>
+            </div>
+
+            <div class="slide" id="slide2" style="display:none;">
+                <h2>Add Expenses</h2>
+                <ul id="expenses-list"></ul>
+                <button onclick="addExpense()">Add Expense</button>
+                <button onclick="calculateExpenses()">Calculate Expenses</button>
+            </div>
+
+            <div class="slide" id="slide3" style="display:none;">
+                <h2>Expense Summary</h2>
+                <p id="needsPercentage"></p>
+                <p id="wantsPercentage"></p>
+                <p id="needsAmount"></p>
+                <p id="wantsAmount"></p>
+                <p id="leftForWants"></p>
+                <p id="savings"></p>
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
