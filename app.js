@@ -70,8 +70,8 @@ function calculateExpenses() {
     const totalNeeds = expenses.reduce((acc, expense) => expense.category === 'need' ? acc + expense.amount : acc, 0);
     const totalWants = expenses.reduce((acc, expense) => expense.category === 'want' ? acc + expense.amount : acc, 0);
 
-    const needsPercentage = ((totalNeeds / totalIncome) * 100).toFixed(2);
-    const wantsPercentage = ((totalWants / totalIncome) * 100).toFixed(2);
+    const needsPercentage = Math.min(((totalNeeds / totalIncome) * 100), 100).toFixed(2);
+    const wantsPercentage = Math.min(((totalWants / totalIncome) * 100), 100).toFixed(2);
 
     const needsAmount = totalNeeds.toFixed(2);
     const wantsAmount = totalWants.toFixed(2);
@@ -79,9 +79,19 @@ function calculateExpenses() {
     const savingsPercentage = 20;
     const savingsAmount = (monthlyIncome * (savingsPercentage / 100)).toFixed(2);
 
-    const leftForWants = (monthlyIncome - totalNeeds - savingsAmount).toFixed(2); 
+    const leftForWants = (monthlyIncome - totalNeeds - savingsAmount).toFixed(2);
 
-    document.getElementById('needsPercentage', 'wantsPercentage', 'needsAmount', 'wantsAmount').innerText = `${needsPercentage}% of your income is allocated to necessities, totaling $${needsAmount}. Meanwhile, ${wantsPercentage}% of your income is designated for luxuries, amounting to $${wantsAmount} for your wants.`;
-    document.getElementById('leftForWants', 'savings').innerText = `To ensure a well-rounded financial approach, it is advisable to reserve a minimum of 30% of your income for discretionary expenses, translating to $${leftForWants} left over for your wants. Additionally, consider saving 20% of your income for future goals; this would allow you to set aside $${savingsAmount} each month.`;
+    const totalPercentage = parseFloat(needsPercentage) + parseFloat(wantsPercentage) + savingsPercentage;
+
+    if (totalPercentage > 100) {
+        alert("Warning: Your total expenses for needs and wants exceed 100%. Please reconsider your budgeting.");
+        return;
+    }
+
+    document.getElementById('needsPercentage').innerText = `${needsPercentage}% of your income is allocated to necessities, totaling $${needsAmount}.`;
+    document.getElementById('wantsPercentage').innerText = `${wantsPercentage}% of your income is designated for luxuries, amounting to $${wantsAmount} for your wants.`;
+
+    document.getElementById('leftForWants').innerText = `To ensure a well-rounded financial approach, it is advisable to reserve a minimum of 30% of your income for discretionary expenses, translating to $${leftForWants} left over for your wants. Additionally, consider saving 20% of your income for future goals; this would allow you to set aside $${savingsAmount} each month.`;
+
     document.getElementById('slide3').style.display = 'block';
 }
